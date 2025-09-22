@@ -26,7 +26,7 @@ export const createPixCharge = async (body, token) => {
 
 
   try {
-    const response = await axios.post(url, {...data}, {
+    const response = await axios.post(url, data, {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -34,7 +34,7 @@ export const createPixCharge = async (body, token) => {
         "Authorization": `Bearer ${token}`
       }
     });
-    return response.payload;
+    return response.data;
   } catch (error) {
     console.log(error);
   }

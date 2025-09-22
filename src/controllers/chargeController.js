@@ -6,7 +6,6 @@ export const newPixCharge = async (req, res) => {
     req.session.pixCharge = response;
     return response;
   } catch (error) {
-    console.log('chargecontroller error')
     console.log(error);
   }
 }
