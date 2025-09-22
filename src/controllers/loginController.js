@@ -4,8 +4,11 @@ export const login = async (req, res) => {
   try {
     const tokenData = await authenticate();
     req.session.token = tokenData.access_token;
-    res.send(`Login realizado! Token: ${tokenData.access_token}`);
+    if (res) {
+      res.send(`Login realizado! Token: ${tokenData.access_token}`);
+    }
+    return tokenData;
   } catch (error) {
-    res.status(401).send(`Erro ao autenticar: ${error.message}`);
+    console.log(error);
   }
 }

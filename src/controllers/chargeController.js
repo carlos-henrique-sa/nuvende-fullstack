@@ -2,10 +2,11 @@ import { createPixCharge } from "../services/chargeService.js";
 
 export const newPixCharge = async (req, res) => {
   try {
-    const tokenData = await createPixCharge();
-    req.session.token = tokenData.access_token;
-    res.send(`Login realizado! Token: ${tokenData.access_token}`);
+    const response = await createPixCharge(req.body, req.session.token);
+    req.session.pixCharge = response;
+    return response;
   } catch (error) {
-    res.status(401).send(`Erro ao autenticar: ${error.message}`);
+    console.log('chargecontroller error')
+    console.log(error);
   }
 }
