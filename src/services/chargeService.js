@@ -13,17 +13,21 @@ export const createPixCharge = async (body, token) => {
     chave: PIX_KEY,
     nomeRecebedor: body.nomeRecebedor,
     calendario: {
-      expiracao: body.expiracao || "3600"
+      expiracao: Number(body.calendario.expiracao || 3600) // default 3600 se não vier
     },
     valor: {
       original: body.valor.original,
-      modalidadeAlteracao: body.valor.modalidadeAlteracao
-    },
-    devedor: {
-      nome: body.devedor.nome,
-    }, 
+      modalidadeAlteracao: Number(body.valor.modalidadeAlteracao || 0)
+    }
   };
 
+  if (body.devedor?.nome) {
+    data.devedor = { nome: body.devedor.nome };
+
+    if (body.devedor.cpf) {
+      data.devedor.cpf = body.devedor.cpf;
+    }
+  }
 
   try {
     const response = await axios.post(url, data, {
